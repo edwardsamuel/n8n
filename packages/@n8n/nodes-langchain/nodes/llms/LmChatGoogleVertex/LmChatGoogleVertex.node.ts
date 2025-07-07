@@ -138,6 +138,21 @@ export class LmChatGoogleVertex implements INodeType {
 			extractValue: true,
 		}) as string;
 
+		const labels = this.getNodeParameter('labels.label', itemIndex, []) as Array<{
+			key: string;
+			value: string;
+		}>;
+
+		const formattedLabels = labels.reduce(
+			(acc, label) => {
+				if (label.key && label.value) {
+					acc[label.key] = label.value;
+				}
+				return acc;
+			},
+			{} as Record<string, string>,
+		);
+
 		const options = this.getNodeParameter('options', itemIndex, {
 			maxOutputTokens: 2048,
 			temperature: 0.4,
@@ -172,6 +187,7 @@ export class LmChatGoogleVertex implements INodeType {
 				temperature: options.temperature,
 				maxOutputTokens: options.maxOutputTokens,
 				safetySettings,
+				labels: formattedLabels,
 				callbacks: [new N8nLlmTracing(this)],
 				// Handle ChatVertexAI invocation errors to provide better error messages
 				onFailedAttempt: makeN8nLlmFailedAttemptHandler(this, (error: any) => {

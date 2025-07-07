@@ -84,5 +84,37 @@ export const additionalOptions: INodeProperties = {
 				},
 			],
 		},
+		{
+			displayName: 'Labels',
+			name: 'labels',
+			type: 'fixedCollection',
+			typeOptions: {
+				multipleValues: true,
+			},
+			description: 'Add labels for cost tracking (key-value pairs)',
+			default: {},
+			options: [
+				{
+					name: 'label',
+					displayName: 'Label',
+					values: [
+						{
+							displayName: 'Key',
+							name: 'key',
+							type: 'string',
+							default: '',
+							description: 'Label key',
+						},
+						{
+							displayName: 'Value',
+							name: 'value',
+							type: 'string',
+							default: '',
+							description: 'Label value',
+						},
+					],
+				},
+			],
+		},
 	],
 };
