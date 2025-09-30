@@ -3,6 +3,7 @@ import { VersionedNodeType } from 'n8n-workflow';
 
 import { SlackV1 } from './V1/SlackV1.node';
 import { SlackV2 } from './V2/SlackV2.node';
+import { SlackV3 } from './V3/SlackV3.node';
 
 export class Slack extends VersionedNodeType {
 	constructor() {
@@ -13,7 +14,7 @@ export class Slack extends VersionedNodeType {
 			group: ['output'],
 			subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 			description: 'Consume Slack API',
-			defaultVersion: 2.3,
+			defaultVersion: 3,
 		};
 
 		const nodeVersions: IVersionedNodeType['nodeVersions'] = {
@@ -22,6 +23,7 @@ export class Slack extends VersionedNodeType {
 			2.1: new SlackV2(baseDescription),
 			2.2: new SlackV2(baseDescription),
 			2.3: new SlackV2(baseDescription),
+			3: new SlackV3(baseDescription),
 		};
 
 		super(nodeVersions, baseDescription);
